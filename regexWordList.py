@@ -5,8 +5,6 @@ from typing import Dict, List, Tuple
 
 import tornado.web
 
-
-
 MATCH_LISTS: Dict[str, Tuple[List[str], List[List[str]]]] = {}
 MATCH_LISTS_DIR = os.path.join(os.path.dirname(__file__), "matchLists")
 
@@ -29,7 +27,11 @@ def makeWordLists():
                 else:
                     fileEntries.append(entry)
 
-            MATCH_LISTS[matchList] = (fileHeadings, fileEntries)
+            name = matchList
+            if name.endswith(".txt"):
+                name = name[:-4]
+
+            MATCH_LISTS[name] = (fileHeadings, fileEntries)
 
 makeWordLists()
 
